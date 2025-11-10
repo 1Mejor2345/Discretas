@@ -1,1 +1,135 @@
-<!doctype html><html lang='es'><head><meta charset='utf-8' /><meta name='viewport' content='width=device-width,initial-scale=1' /><title>TSP Tournament — Proyecto Discretas</title><link rel='stylesheet' href='style.css' /></head><body><header><h1>TSP Tournament</h1><p>Juego interactivo educativo sobre el Problema del Agente Viajero — selecciona algoritmos, crea partidas y observa cómo "piensan".</p><nav><button id='btn-play'>Jugar</button><button id='btn-algos'>Algoritmos</button><button id='btn-theory'>Teoría (Syllabus)</button><button id='btn-caratula'>Carátula</button></nav></header><main><section id='play' class='panel'><h2>Modo Juego / Partido</h2><div class='controls'><label>Instancia:<select id='preset'><option value='ecuador'>Ciudades de Ecuador (10)</option><option value='random'>Aleatoria (n puntos)</option><option value='world'>Ciudades del mundo (10)</option></select></label><label>Número de puntos: <input id='npoints' type='number' min='3' max='12' value='8'></label><button id='gen'>Generar</button><button id='clear'>Limpiar</button></div><div class='arena'><canvas id='canvas' width='800' height='500'></canvas><aside><h3>Jugadores (elige algoritmo)</h3><div id='players'><div class='player-row'><label>Jugador 1: <select class='alg-select'><option value='bruteforce'>Brute Force (óptimo, n≤9)</option><option value='heldkarp'>Held–Karp (DP)</option><option value='nearest'>Nearest Neighbor</option><option value='twoopt'>2-opt (mejora local)</option><option value='mst2approx'>MST 2-approx</option></select></label></div><div class='player-row'><label>Jugador 2: <select class='alg-select'><option value='nearest'>Nearest Neighbor</option><option value='twoopt'>2-opt</option><option value='mst2approx'>MST 2-approx</option><option value='heldkarp'>Held–Karp</option><option value='bruteforce'>Brute Force</option></select></label></div></div><button id='startMatch'>Iniciar partida</button><div id='matchLog'></div></aside></div><div class='explain-legend'><p>Puedes arrastrar las ciudades con el mouse para crear nuevas instancias manualmente (click + arrastra).</p></div></section><section id='algos' class='panel hidden'><h2>Algoritmos (explicación y animaciones paso a paso)</h2><div class='algo-list'><article id='algo-bruteforce'><h3>Brute Force (Fuerza bruta)</h3><p>Explora todas las permutaciones y devuelve la mejor. Relacionado con permutaciones y factoriales (n!). Usable solo para n pequeño.</p></article><article id='algo-heldkarp'><h3>Held–Karp (Programación dinámica)</h3><p>Usa bitmask + DP para O(n^2 · 2^n). Demuestra relación con relaciones de recurrencia y análisis de algoritmos.</p></article><article id='algo-nearest'><h3>Nearest Neighbor (Vecino más cercano)</h3><p>Heurística voraz: desde una ciudad, siempre ir al vecino más cercano no visitado.</p></article><article id='algo-2opt'><h3>2-opt (Mejora local)</h3><p>Intercambia pares de aristas para mejorar la ruta. Relacionado con grafos y recorridos hamiltonianos.</p></article><article id='algo-mst2'><h3>MST 2-approx (usando árbol de expansión mínima)</h3><p>Construye un MST (Prim), lo dobla para obtener un circuito Euleriano y hace 'shortcut' para obtener un tour Hamiltoniano ≤ 2·OPT. Relacionado con árboles, Prim y pruebas de cota.</p></article></div></section><section id='theory' class='panel hidden'><h2>Teoría y mapeo al Syllabus</h2><p>Abajo tienes los temas, definiciones y teoremas del syllabus que se aplican al Problema del Agente Viajero (TSP).</p><ul id='theoryList'></ul><h3>Pruebas y referencias incluidas en el informe</h3><p>Se sugiere incluir las siguientes demostraciones en el marco teórico:</p><ol><li>Definición y propiedades de grafos ponderados; definición de ciclo Hamiltoniano.</li><li>Reducción desde Hamiltonian Cycle -> NP-hardness (explicación conceptual).</li><li>Conteo de permutaciones y el crecimiento factorial (n!).</li><li>Prueba del algoritmo 2-approx basado en MST (doblado + shortcutting).</li><li>Análisis de complejidad de Held–Karp con relación de recurrencia.</li></ol></section><section id='caratula' class='panel hidden'><h2>Carátula (lista para copiar en Word)</h2><div class='cardatula-content'><p><strong>ESPOCH / ESPOL</strong> (inserta logo aquí)</p><p><strong>Materia:</strong> Matemáticas Discretas</p><p><strong>Docente:</strong> (nombre del docente)</p><p><strong>Título:</strong> Proyecto — Problema del Agente Viajero: TSP Tournament</p><p><strong>Integrantes:</strong> (tu nombre y compañeros)</p><p><strong>Fecha de entrega:</strong> (fecha)</p></div></section><footer><p>Proyecto generado para facilitar el desarrollo. Código incluido en el ZIP contiene más documentación y README.</p></footer></main><script src='script.js'></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TSP Tournament — Proyecto Discretas</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <h1>TSP Tournament</h1>
+  <p>Juego interactivo educativo sobre el Problema del Agente Viajero — selecciona algoritmos, crea partidas y observa cómo "piensan".</p>
+  <nav>
+    <button id="btn-play">Jugar</button>
+    <button id="btn-algos">Algoritmos</button>
+    <button id="btn-theory">Teoría (Syllabus)</button>
+    <button id="btn-caratula">Carátula</button>
+  </nav>
+</header>
+
+<main>
+  <section id="play" class="panel">
+    <h2>Modo Juego / Partido</h2>
+    <div class="controls">
+      <label>Instancia:
+        <select id="preset">
+          <option value="ecuador">Ciudades de Ecuador (10)</option>
+          <option value="random">Aleatoria (n puntos)</option>
+          <option value="world">Ciudades del mundo (10)</option>
+        </select>
+      </label>
+      <label>Número de puntos: <input id="npoints" type="number" min="3" max="12" value="8"></label>
+      <button id="gen">Generar</button>
+      <button id="clear">Limpiar</button>
+    </div>
+
+    <div class="arena">
+      <canvas id="canvas" width="800" height="500"></canvas>
+      <aside>
+        <h3>Jugadores (elige algoritmo)</h3>
+        <div id="players">
+          <div class="player-row">
+            <label>Jugador 1: <select class="alg-select">
+              <option value="bruteforce">Brute Force (óptimo, n≤9)</option>
+              <option value="heldkarp">Held–Karp (DP)</option>
+              <option value="nearest">Nearest Neighbor</option>
+              <option value="twoopt">2-opt (mejora local)</option>
+              <option value="mst2approx">MST 2-approx</option>
+            </select></label>
+          </div>
+          <div class="player-row">
+            <label>Jugador 2: <select class="alg-select">
+              <option value="nearest">Nearest Neighbor</option>
+              <option value="twoopt">2-opt</option>
+              <option value="mst2approx">MST 2-approx</option>
+              <option value="heldkarp">Held–Karp</option>
+              <option value="bruteforce">Brute Force</option>
+            </select></label>
+          </div>
+        </div>
+        <button id="startMatch">Iniciar partida</button>
+        <div id="matchLog"></div>
+      </aside>
+    </div>
+
+    <div class="explain-legend">
+      <p>Puedes arrastrar las ciudades con el mouse para crear nuevas instancias manualmente (click + arrastra).</p>
+    </div>
+  </section>
+
+  <section id="algos" class="panel hidden">
+    <h2>Algoritmos (explicación y animaciones paso a paso)</h2>
+    <div class="algo-list">
+      <article id="algo-bruteforce">
+        <h3>Brute Force (Fuerza bruta)</h3>
+        <p>Explora todas las permutaciones y devuelve la mejor. Relacionado con permutaciones y factoriales (n!). Usable solo para n pequeño.</p>
+      </article>
+
+      <article id="algo-heldkarp">
+        <h3>Held–Karp (Programación dinámica)</h3>
+        <p>Usa bitmask + DP para O(n^2 · 2^n). Demuestra relación con relaciones de recurrencia y análisis de algoritmos.</p>
+      </article>
+
+      <article id="algo-nearest">
+        <h3>Nearest Neighbor (Vecino más cercano)</h3>
+        <p>Heurística voraz: desde una ciudad, siempre ir al vecino más cercano no visitado.</p>
+      </article>
+
+      <article id="algo-2opt">
+        <h3>2-opt (Mejora local)</h3>
+        <p>Intercambia pares de aristas para mejorar la ruta. Relacionado con grafos y recorridos hamiltonianos.</p>
+      </article>
+
+      <article id="algo-mst2">
+        <h3>MST 2-approx (usando árbol de expansión mínima)</h3>
+        <p>Construye un MST (Prim), lo dobla para obtener un circuito Euleriano y hace 'shortcut' para obtener un tour Hamiltoniano ≤ 2·OPT. Relacionado con árboles, Prim y pruebas de cota.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="theory" class="panel hidden">
+    <h2>Teoría y mapeo al Syllabus</h2>
+    <p>Abajo tienes los temas, definiciones y teoremas del syllabus que se aplican al Problema del Agente Viajero (TSP).</p>
+    <ul id="theoryList"></ul>
+    <h3>Pruebas y referencias incluidas en el informe</h3>
+    <p>Se sugiere incluir las siguientes demostraciones en el marco teórico:</p>
+    <ol>
+      <li>Definición y propiedades de grafos ponderados; definición de ciclo Hamiltoniano.</li>
+      <li>Reducción desde Hamiltonian Cycle -> NP-hardness (explicación conceptual).</li>
+      <li>Conteo de permutaciones y el crecimiento factorial (n!).</li>
+      <li>Prueba del algoritmo 2-approx basado en MST (doblado + shortcutting).</li>
+      <li>Análisis de complejidad de Held–Karp con relación de recurrencia.</li>
+    </ol>
+  </section>
+
+  <section id="caratula" class="panel hidden">
+    <h2>Carátula (lista para copiar en Word)</h2>
+    <div class="cardatula-content">
+      <p><strong>ESPOCH / ESPOL</strong> (inserta logo aquí)</p>
+      <p><strong>Materia:</strong> Matemáticas Discretas</p>
+      <p><strong>Docente:</strong> (nombre del docente)</p>
+      <p><strong>Título:</strong> Proyecto — Problema del Agente Viajero: TSP Tournament</p>
+      <p><strong>Integrantes:</strong> (tu nombre y compañeros)</p>
+      <p><strong>Fecha de entrega:</strong> (fecha)</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Proyecto generado para facilitar el desarrollo. Código incluido en el ZIP contiene más documentación y README.</p>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
