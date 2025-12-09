@@ -1,51 +1,73 @@
-# TSP Tournament — Proyecto para Matemáticas Discretas
+# Welcome to your Lovable project
 
-Este proyecto es una **página web interactiva** (single-page) que sirve como prototipo y demo para un trabajo de curso sobre el **Problema del Agente Viajero (TSP)**. Está pensada para impresionar al docente porque:
+## Project info
 
-- Integra conceptos del syllabus: grafos, árboles, permutaciones, conteo, análisis de algoritmos y demostraciones formales.
-- Presenta una **interfaz tipo juego**: varios jugadores escogen algoritmos y compiten en la misma instancia.
-- Muestra animaciones que "exponen" cómo piensa cada algoritmo.
-- Incluye secciones de teoría que mapean directamente los temas del curso y las demostraciones sugeridas.
+**URL**: https://lovable.dev/projects/1b6133d7-dbcf-427b-8a92-cf97b4860030
 
-## Contenido del ZIP
+## How can I edit this code?
 
-- `index.html` — página principal (juego, secciones de algoritmos y teoría)
-- `style.css` — estilos
-- `script.js` — lógica, algoritmos y animaciones
-- `README.md` — este archivo
-- `LICENSE` — MIT
+There are several ways of editing your application.
 
-## Qué algoritmos incluye y su relación con el Syllabus
+**Use Lovable**
 
-1. **Brute force (fuerza bruta)** — Permutaciones, crecimiento factorial (Unidad 3: conteo).
-2. **Held–Karp (DP, bitmask)** — Relaciones de recurrencia y análisis (Unidad 4).
-3. **Nearest Neighbor (voraz)** — Heurística simple; relacionada con grafos (Unidad 5).
-4. **2-opt (mejora local)** — Recorridos hamiltonianos y operaciones sobre permutaciones (Unidades 2 y 5).
-5. **MST 2-approx (Prim + shortcutting)** — Árboles, MST y prueba de cota 2-approx (Unidad 5).
+Simply visit the [Lovable Project](https://lovable.dev/projects/1b6133d7-dbcf-427b-8a92-cf97b4860030) and start prompting.
 
-## Instrucciones rápidas
+Changes made via Lovable will be committed automatically to this repo.
 
-1. Descomprime el ZIP y abre `index.html` en tu navegador (no necesita servidor).
-2. En la pestaña "Jugar":
-   - Genera una instancia (ciudades de Ecuador incluidas o aleatorias).
-   - Escoge algoritmos para cada jugador.
-   - Haz clic en "Iniciar partida" para ver animaciones y comparar resultados.
-3. Revisa la sección "Algoritmos" para explicaciones y la sección "Teoría" para mapeo al syllabus.
+**Use your preferred IDE**
 
-## Notas técnicas y recomendaciones
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-- El demo de Held–Karp y Brute Force es práctico solo para `n` pequeño (≤10–12) por razones computacionales.
-- Para una entrega más completa puedes:
-  - Añadir una página con la **demostración formal** de la cota 2-approx (MST doblado).
-  - Incluir **TSPLIB** como conjunto de instancias y correr comparativas experimentales (Jupyter notebooks).
-  - Integrar un servidor en Flask si quieres registrar partidas o hacer multijugador real.
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-## Ideas para la entrega (ganar puntos extra)
+Follow these steps:
 
-- Grabar un video en el que mostrar la app y explicar la correspondencia matemática (p. ej. prueba por inducción del comportamiento del DP).
-- Adjuntar un documento con las demostraciones formales: reducción a Hamiltonian Cycle, prueba de la cota 2-approx, análisis de la complejidad de Held–Karp.
-- Incluir una maqueta o robot que recorra físicamente la solución calculada (video).
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
----
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-Desarrollado como prototipo para un proyecto de curso. Puedes personalizar nombres de ciudades, logos (insertar logo de ESPOL en la carátula) y ampliar el código con más algoritmos (Christofides, branch-and-bound con cuts, ILP).
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
+```
+
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/1b6133d7-dbcf-427b-8a92-cf97b4860030) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
